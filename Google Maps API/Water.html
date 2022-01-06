@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Google Maps For Water Pollution</title>
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Nitrate Pollutant in Water Google Map</h1>
+    <div id="map"></div>
+    <script>
+        function initMap() {
+
+            // Map Options
+
+            var options = {
+                zoom: 7,
+                center: { lat: 41.6611, lng: -91.5302 }
+            }
+
+            // New Map
+
+            var map = new google.maps.Map(document.getElementById('map'), options);
+
+            
+
+            // Array of Markers
+
+            var  markers =[
+            {
+                coords:{lat: 41.6610, lng: -91.5301},
+                iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+                content: '<h1> Nitrate Pollutants in Water for Iowa City(2016): 715 short tons per day</h1>'
+            },
+
+            {
+                coords:{lat: 42.1536, lng: -90.6782},
+                iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+                content: '<h1> Nitrate Pollutants in Water for Fulton,Iowa(2015): 579 short tons per day</h1>'
+            },
+
+            {
+                coords:{lat: 42.7442, lng: -90.3221},
+                iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+                content: '<h1> Nitrate Pollutants in Water for Green Island,Iowa(2019): 972 short tons per day</h1>'
+            }
+
+            ];
+
+            // Loop Through Markers
+
+            for(var i =0; i < markers.length; i++){
+
+                addMarker(markers[i]);
+
+            }
+
+
+            
+
+            function addMarker(props){
+
+                // Add Marker
+
+                var marker = new google.maps.Marker({
+                    position: props.coords ,
+                    map: map,
+                    icon: props.iconImage
+                });
+
+                //Check for custom icon
+
+                if(props.iconImage){
+                    //Set Icon Image
+                    marker.setIcon(props.iconImage);
+                }
+
+                  //Check for custom content
+
+                  if(props.content){
+                    //Set Content
+                      
+                    // Add info Window
+
+                    var infoWindow = new google.maps.InfoWindow({
+                    content: props.content
+                    });
+
+
+                    marker.addListener('click', function () {
+                    infoWindow.open(map, marker);
+                    });
+                    }
+
+
+
+            }
+
+
+
+
+
+
+        }
+
+
+
+    </script>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPbAa2pWnPn7MWRR-hi9uzYSb1orYKYZY&callback=initMap&v=weekly"
+        async></script>
+</body>
+
+</html>
